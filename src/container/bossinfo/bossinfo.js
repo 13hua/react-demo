@@ -38,7 +38,6 @@ class BossInfo extends React.Component {
         ) : null}
         <NavBar mode="dark">BOSS完善信息页</NavBar>
         <AvatarSelector
-          // selectAvatar={this.selectAvatar}
           selectAvatar={imgname => {
             this.setState({
               avatar: imgname
