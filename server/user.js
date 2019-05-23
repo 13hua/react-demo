@@ -7,9 +7,10 @@ const User = model.getModel('user');
 const _filter = { pwd: 0, __v: 0 };
 
 Router.get('/list', function(req, res) {
+  const { type } = req.query; //get 的参数用query获取 post的参数是在body中
   // User.remove({}, function(err, doc) {});
-  User.find({}, function(err, doc) {
-    return res.json(doc);
+  User.find({ type }, function(err, doc) {
+    return res.json({ code: 0, data: doc });
   });
 });
 

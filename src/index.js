@@ -5,8 +5,6 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import BossInfo from './container/bossinfo/bossinfo.js';
-import GeniusInfo from './container/geniusinfo/geniusinfo';
 import reducers from './reducer';
 import './config.js';
 import './index.css';
@@ -15,6 +13,9 @@ import AuthRoute from './component/authroute/authroute';
 
 import Login from './container/login/login.js';
 import Register from './container/register/register.js';
+import BossInfo from './container/bossinfo/bossinfo.js';
+import GeniusInfo from './container/geniusinfo/geniusinfo.js';
+import Dashboard from './container/dashboard/dashboard.js';
 
 const reduxDevTools = window.devToolsExtension
   ? window.devToolsExtension
@@ -29,11 +30,7 @@ const store = createStore(
   )
 );
 
-class Boss extends React.Component {
-  render() {
-    return <h2>BOSS 页面</h2>;
-  }
-}
+// boss genius me msg 4个页面
 
 ReactDom.render(
   <Provider store={store}>
@@ -43,9 +40,9 @@ ReactDom.render(
         <Switch>
           <Route path="/geniusinfo" component={GeniusInfo} />
           <Route path="/bossinfo" component={BossInfo} />
-          <Route path="/boss" component={Boss} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
+          <Route component={Dashboard} />
         </Switch>
       </div>
     </BrowserRouter>
