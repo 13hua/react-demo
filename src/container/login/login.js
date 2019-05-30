@@ -1,21 +1,66 @@
 import React from 'react';
-import Logo from '../../component/logo/logo';
-import {
-  List,
-  InputItem,
-  Button,
-  // Radio,
-  WhiteSpace,
-  WingBlank
-} from 'antd-mobile';
-import { connect } from 'react-redux';
-import { login } from '../../redux/user.redux';
 import { Redirect } from 'react-router-dom';
+import { List, InputItem, Button, WhiteSpace, WingBlank } from 'antd-mobile';
+import { connect } from 'react-redux';
+
+import Logo from '../../component/logo/logo';
+import { login } from '../../redux/user.redux';
+import imoocForm from '../../component/imooc-form/imooc-form';
+// // 简单的高阶组建
+// function hello() {
+//   console.log('hello imooc I love React');
+// }
+
+// function WrapperHello(fn) {
+//   return function() {
+//     console.log('before say hello');
+//     fn();
+//     console.log('after say hello');
+//   };
+// }
+
+// hello = WrapperHello(hello);
+// hello();
+
+// function WrapperHello(Comp) {
+//   //属性代理
+//   // class WrapComp extends React.Component {
+//   //   render() {
+//   //     return (
+//   //       <div>
+//   //         <p>这是HOC高阶组件特有的元素</p>
+//   //         <Comp {...this.props} />
+//   //       </div>
+//   //     );
+//   //   }
+//   // }
+//   //反向继承
+//   class WrapComp extends Comp {
+//     componentDidMount() {
+//       console.log('高阶组件新增的生命周期,加载完成');
+//     }
+//     render() {
+//       return <Comp />;
+//     }
+//   }
+//   return WrapComp;
+// }
+
+// @WrapperHello
+// class Hello extends React.Component {
+//   componentDidMount() {
+//     console.log('Hello加载完成');
+//   }
+//   render() {
+//     return <h2>hello imooc I love React&Redux</h2>;
+//   }
+// }
 
 @connect(
   state => state.user,
   { login }
 )
+@imoocForm
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -31,25 +76,23 @@ class Login extends React.Component {
     console.log(this.props);
     this.props.history.push('/register');
   }
-  handleChange(key, value) {
-    this.setState({
-      [key]: value
-    });
-  }
   handleLogin() {
     console.log(this.props);
-    this.props.login(this.state);
+    this.props.login(this.props.state);
   }
 
   render() {
     return (
       <div>
-        {this.props.redirectTo ? <Redirect to={this.props.redirectTo} /> : null}
+        {/* <Hello /> */}
+        {this.props.redirectTo && this.props.redirectTo !== '/login' ? (
+          <Redirect to={this.props.redirectTo} />
+        ) : null}
         <Logo />
         <List>
           <WhiteSpace />
           <InputItem
-            onChange={v => this.handleChange('user', v)}
+            onChange={v => this.props.handleChange('user', v)}
             placeholder="imooc"
           >
             用户
@@ -57,7 +100,7 @@ class Login extends React.Component {
           <WhiteSpace />
           <InputItem
             type="password"
-            onChange={v => this.handleChange('pwd', v)}
+            onChange={v => this.props.handleChange('pwd', v)}
             placeholder="123"
           >
             密码
