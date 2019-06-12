@@ -16,12 +16,13 @@ import Register from './container/register/register.js';
 import BossInfo from './container/bossinfo/bossinfo.js';
 import GeniusInfo from './container/geniusinfo/geniusinfo.js';
 import Dashboard from './container/dashboard/dashboard.js';
+import Chat from './component/chat/chat.js';
 
 const reduxDevTools = window.devToolsExtension
   ? window.devToolsExtension
-  : () => {};
+  : f => f;
 
-// window.devToolsExtension
+// window
 const store = createStore(
   reducers,
   compose(
@@ -42,6 +43,7 @@ ReactDom.render(
           <Route path="/bossinfo" component={BossInfo} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
+          <Route path="/chat/:user" component={Chat} />
           <Route component={Dashboard} />
         </Switch>
       </div>
