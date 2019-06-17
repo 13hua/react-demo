@@ -15,7 +15,7 @@ import Login from './container/login/login.js';
 import Register from './container/register/register.js';
 import BossInfo from './container/bossinfo/bossinfo.js';
 import GeniusInfo from './container/geniusinfo/geniusinfo.js';
-import Dashboard from './container/dashboard/dashboard.js';
+import Dashboard from './component/dashboard/dashboard.js';
 import Chat from './component/chat/chat.js';
 
 const reduxDevTools = window.devToolsExtension
