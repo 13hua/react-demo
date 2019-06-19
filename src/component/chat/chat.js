@@ -2,7 +2,7 @@ import React from 'react';
 import { List, InputItem, NavBar, Icon, Grid } from 'antd-mobile';
 // import io from 'socket.io-client';
 import { connect } from 'react-redux';
-import { getMsgList, sendMsg, recvMsg } from '../../redux/chat.redux';
+import { getMsgList, sendMsg, recvMsg, readMsg } from '../../redux/chat.redux';
 import { getChatId } from '../../utils';
 
 // io() // 如果不跨域直接这么调
@@ -11,7 +11,7 @@ import { getChatId } from '../../utils';
 
 @connect(
   state => state,
-  { getMsgList, sendMsg, recvMsg }
+  { getMsgList, sendMsg, recvMsg, readMsg }
 )
 class Chat extends React.Component {
   constructor(props) {
@@ -23,6 +23,12 @@ class Chat extends React.Component {
       this.props.getMsgList();
       this.props.recvMsg();
     }
+  }
+
+  componentWillUnmount() {
+    console.log('unmount');
+    const to = this.props.match.params.user;
+    this.props.readMsg(to);
   }
 
   fixCarousel() {
@@ -37,6 +43,10 @@ class Chat extends React.Component {
     const from = this.props.user._id;
     const to = this.props.match.params.user;
     const msg = this.state.text;
+    if (!msg) {
+      console.log('不能发送空消息');
+      return null;
+    }
     this.props.sendMsg({ from, to, msg });
     this.setState({
       text: ''
